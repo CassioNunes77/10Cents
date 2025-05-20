@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10¢ Help</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            max-width: 414px; /* Tamanho aproximado do iPhone */
+            margin: 0 auto;
+        }
+        header {
+            background-color: #6200ee;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .task-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .task-card h3 {
+            color: #6200ee;
+            margin-bottom: 5px;
+        }
+        .task-card p {
+            margin-bottom: 10px;
+        }
+        .price-tag {
+            background-color: #03dac6;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+        }
+        .button {
+            background-color: #6200ee;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .tab-bar {
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 414px;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        .tab {
+            text-align: center;
+            color: #666;
+        }
+        .tab.active {
+            color: #6200ee;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .balance {
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+            color: #6200ee;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>10¢ Help</h1>
+    </header>
+
+    <!-- Tela Principal (Tarefas) -->
+    <div id="tasks-screen">
+        <div class="task-card">
+            <h3>Traduzir frase para inglês</h3>
+            <p>"Onde fica o banheiro mais próximo?"</p>
+            <span class="price-tag">10¢</span>
+            <button class="button">Ajudar Agora</button>
+        </div>
+
+        <div class="task-card">
+            <h3>Verificar se a loja está aberta</h3>
+            <p>Padaria Doce Pão, Rua das Flores, 123</p>
+            <span class="price-tag">10¢</span>
+            <button class="button">Ajudar Agora</button>
+        </div>
+
+        <div class="task-card">
+            <h3>Opinião sobre minha foto de perfil</h3>
+            <p>Está profissional para LinkedIn?</p>
+            <span class="price-tag">10¢</span>
+            <button class="button">Ajudar Agora</button>
+        </div>
+    </div>
+
+    <!-- Tela Criar Tarefa (Escondida por padrão) -->
+    <div id="create-screen" style="display: none; padding: 15px;">
+        <h2 style="margin-bottom: 20px;">Nova Tarefa</h2>
+        <div class="form-group">
+            <label>Título</label>
+            <input type="text" placeholder="Ex: Traduzir frase para espanhol">
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea rows="3" placeholder="Descreva o que precisa..."></textarea>
+        </div>
+        <button class="button">Publicar por 10¢</button>
+    </div>
+
+    <!-- Tela Perfil (Escondida por padrão) -->
+    <div id="profile-screen" style="display: none; padding: 15px;">
+        <h2 style="margin-bottom: 20px;">Meu Perfil</h2>
+        <div class="balance">
+            Saldo: R$ 2,40
+        </div>
+        <h3 style="margin: 15px 0;">Minhas Tarefas</h3>
+        <div class="task-card">
+            <h3>Tradução concluída</h3>
+            <p>Você ganhou 10¢ por ajudar Maria</p>
+            <span class="price-tag">+10¢</span>
+        </div>
+        <button class="button" style="background-color: #03dac6;">Sacar Dinheiro</button>
+    </div>
+
+    <!-- Barra de Navegação Inferior -->
+    <div class="tab-bar">
+        <div class="tab active" onclick="showScreen('tasks-screen')">
+            <span>🏠</span><br>Tarefas
+        </div>
+        <div class="tab" onclick="showScreen('create-screen')">
+            <span>➕</span><br>Nova
+        </div>
+        <div class="tab" onclick="showScreen('profile-screen')">
+            <span>👤</span><br>Perfil
+        </div>
+    </div>
+
+    <script>
+        function showScreen(screenId) {
+            // Esconde todas as telas
+            document.getElementById('tasks-screen').style.display = 'none';
+            document.getElementById('create-screen').style.display = 'none';
+            document.getElementById('profile-screen').style.display = 'none';
+            
+            // Mostra a tela selecionada
+            document.getElementById(screenId).style.display = 'block';
+            
+            // Atualiza tabs ativas
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
