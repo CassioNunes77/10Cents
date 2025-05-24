@@ -3,186 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10¢ Help</title>
+    <title>Desf*de - 90 Dias pra Virar o Jogo</title>
     <style>
+        /* Reset e Estilos Base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
+        
+        :root {
+            --primary: #ff3a5e;
+            --secondary: #2d3748;
+            --dark: #1a202c;
+            --light: #f7fafc;
+            --success: #48bb78;
+            --warning: #ed8936;
+            --danger: #e53e3e;
+        }
+        
         body {
-            background-color: #f5f5f5;
-            color: #333;
-            max-width: 414px; /* Tamanho aproximado do iPhone */
-            margin: 0 auto;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        header {
-            background-color: #6200ee;
+        
+        /* Container Principal */
+        .app-container {
+            max-width: 100%;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .app-header {
+            background-color: var(--primary);
             color: white;
-            padding: 15px;
+            padding: 1rem;
             text-align: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        
+        .app-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Navegação */
+        .nav-tabs {
+            display: flex;
+            background-color: var(--secondary);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 10;
         }
-        .task-card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .task-card h3 {
-            color: #6200ee;
-            margin-bottom: 5px;
-        }
-        .task-card p {
-            margin-bottom: 10px;
-        }
-        .price-tag {
-            background-color: #03dac6;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 12px;
-            display: inline-block;
-        }
-        .button {
-            background-color: #6200ee;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+        
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-tab.active {
+            color: white;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .nav-tab i {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Conteúdo das Seções */
+        .section {
+            display: none;
+            padding: 1.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Card de Destaque */
+        .highlight-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary);
+        }
+        
+        .highlight-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .highlight-text {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .highlight-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--secondary);
+            opacity: 0.7;
+        }
+        
+        /* Botões */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.95rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-block {
             display: block;
             width: 100%;
-            margin: 10px 0;
-            text-align: center;
         }
-        .tab-bar {
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        /* Tarefas */
+        .task-list {
+            margin-top: 1.5rem;
+        }
+        
+        .task-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
             display: flex;
-            justify-content: space-around;
-            background: white;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            max-width: 414px;
-            padding: 10px 0;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
-        .tab {
+        
+        .task-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .task-checkbox {
+            margin-right: 1rem;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .task-content {
+            flex: 1;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .task-description {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            opacity: 0.8;
+        }
+        
+        .task-urgent {
+            border-left: 4px solid var(--danger);
+        }
+        
+        /* Modo Sobrevivência */
+        .survival-tip {
+            background-color: rgba(237, 137, 54, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .survival-tip-title {
+            font-weight: 700;
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Missões */
+        .mission-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .mission-tag {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 0 8px 0 8px;
+        }
+        
+        .mission-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .mission-reward {
+            font-size: 0.9rem;
+            color: var(--success);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        /* Rodapé */
+        .app-footer {
             text-align: center;
-            color: #666;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            opacity: 0.7;
         }
-        .tab.active {
-            color: #6200ee;
+        
+        /* Animações */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
-        .form-group {
-            margin-bottom: 15px;
+        
+        .pulse {
+            animation: pulse 2s infinite;
         }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .balance {
-            font-size: 24px;
-            text-align: center;
-            margin: 20px 0;
-            color: #6200ee;
+        
+        /* Responsividade */
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 450px;
+                margin: 0 auto;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1>10¢ Help</h1>
-    </header>
-
-    <!-- Tela Principal (Tarefas) -->
-    <div id="tasks-screen">
-        <div class="task-card">
-            <h3>Traduzir frase para inglês</h3>
-            <p>"Onde fica o banheiro mais próximo?"</p>
-            <span class="price-tag">10¢</span>
-            <button class="button">Ajudar Agora</button>
+    <div class="app-container">
+        <!-- Cabeçalho -->
+        <header class="app-header">
+            <h1 class="app-title">Desf*de</h1>
+            <p class="app-subtitle">90 Dias pra Virar o Jogo</p>
+        </header>
+        
+        <!-- Navegação -->
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-target="home">
+                <i class="fas fa-home"></i>
+                Hoje
+            </div>
+            <div class="nav-tab" data-target="tasks">
+                <i class="fas fa-tasks"></i>
+                Ação
+            </div>
+            <div class="nav-tab" data-target="survival">
+                <i class="fas fa-fire"></i>
+                Sobrevivência
+            </div>
+            <div class="nav-tab" data-target="missions">
+                <i class="fas fa-bolt"></i>
+                Missões
+            </div>
         </div>
-
-        <div class="task-card">
-            <h3>Verificar se a loja está aberta</h3>
-            <p>Padaria Doce Pão, Rua das Flores, 123</p>
-            <span class="price-tag">10¢</span>
-            <button class="button">Ajudar Agora</button>
-        </div>
-
-        <div class="task-card">
-            <h3>Opinião sobre minha foto de perfil</h3>
-            <p>Está profissional para LinkedIn?</p>
-            <span class="price-tag">10¢</span>
-            <button class="button">Ajudar Agora</button>
-        </div>
-    </div>
-
-    <!-- Tela Criar Tarefa (Escondida por padrão) -->
-    <div id="create-screen" style="display: none; padding: 15px;">
-        <h2 style="margin-bottom: 20px;">Nova Tarefa</h2>
-        <div class="form-group">
-            <label>Título</label>
-            <input type="text" placeholder="Ex: Traduzir frase para espanhol">
-        </div>
-        <div class="form-group">
-            <label>Descrição</label>
-            <textarea rows="3" placeholder="Descreva o que precisa..."></textarea>
-        </div>
-        <button class="button">Publicar por 10¢</button>
-    </div>
-
-    <!-- Tela Perfil (Escondida por padrão) -->
-    <div id="profile-screen" style="display: none; padding: 15px;">
-        <h2 style="margin-bottom: 20px;">Meu Perfil</h2>
-        <div class="balance">
-            Saldo: R$ 2,40
-        </div>
-        <h3 style="margin: 15px 0;">Minhas Tarefas</h3>
-        <div class="task-card">
-            <h3>Tradução concluída</h3>
-            <p>Você ganhou 10¢ por ajudar Maria</p>
-            <span class="price-tag">+10¢</span>
-        </div>
-        <button class="button" style="background-color: #03dac6;">Sacar Dinheiro</button>
-    </div>
-
-    <!-- Barra de Navegação Inferior -->
-    <div class="tab-bar">
-        <div class="tab active" onclick="showScreen('tasks-screen')">
-            <span>🏠</span><br>Tarefas
-        </div>
-        <div class="tab" onclick="showScreen('create-screen')">
-            <span>➕</span><br>Nova
-        </div>
-        <div class="tab" onclick="showScreen('profile-screen')">
-            <span>👤</span><br>Perfil
-        </div>
+        
+        <!-- Conteúdo -->
+        <main>
+            <!-- Seção Home -->
+            <section id="home" class="section active">
+                <div class="highlight-card">
+                    <h2 class="highlight-title">Dia 1: Corte um gasto inútil HOJE.</h2>
+                    <p class="highlight-text">Pare de enrolar e tome uma atitude agora. Cada dia que passa você está mais f*dido.</p>
+                    
+                    <div class="highlight-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">R$ 0</div>
+                            <div class="stat-label">Salvo hoje</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">R$ 0</div>
+                            <div class="stat-label">Renda extra</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">1/90</div>
+                            <div class="stat-label">Dias</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary btn-block pulse" id="emergency-btn">
+                    <i class="fas fa-exclamation-triangle"></i> EMERGÊNCIA? CLIQUE AQUI
+                </button>
+                
+                <div class="task-list">
+                    <h3 style="margin: 1.5rem 0 1rem; color: var(--secondary);">Sua batalha de hoje:</h3>
+                    
+                    <div class="task-item task-urgent">
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-content">
+                            <h4 class="task-title">Corte 1 gasto inútil AGORA</h4>
+                            <p class="task-description">Assinatura que não usa? Saída que não precisa? Corte algo hoje.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item">
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-content">
+                            <h4 class="task-title">Anote TODOS seus gastos</h4>
+                            <p class="task-description">Não adianta fugir. Você precisa saber onde está o problema.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item">
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-content">
+                            <h4 class="task-title">Venda 1 coisa que não usa</h4>
+                            <p class="task-description">Tem algo parado? Vira dinheiro agora mesmo.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Seção Tarefas -->
+            <section id="tasks" class="section">
+                <div class="highlight-card">
+                    <h2 class="highlight-title">Plano de Ação em 90 Dias</h2>
+                    <p class="highlight-text">Você está no dia 1. Foco total ou continua na merda.</p>
+                    <button class="btn btn-outline btn-block" style="margin-top: 1rem;">
+                        Ver plano completo
+                    </button>
+                </div>
+                
+                <div class="task-list">
+                    <h3 style="margin: 1.5rem 0 1rem; color: var(--secondary);">Tarefas prioritárias:</h3>
+                    
+                    <div class="task-item task-urgent">
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-content">
+                            <h4 class="task-title">[URGENTE] Liste todas as dívidas</h4>
+                            <p class="task-description">Anote valor, juros e data. Não pode fugir disso.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item">
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-content">
+                            <h4 class="task-title">Crie um orçamento brutal</h4>
+                            <p class="task-description">Só o essencial. Nada de luxo até sair do buraco.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item">
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-content">
+                            <h4 class="task-title">Corte 3 gastos desnecessários</h4>
+                            <p class="task-description">Assinaturas, hábitos caros, vícios. Corte agora.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item">
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-content">
+                            <h4 class="task-title">Negocie pelo menos 1 dívida</h4>
+                            <p class="task-description">Ligue para o credor e peça desconto.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Seção Sobrevivência -->
+            <section id="survival" class="section">
+                <div class="highlight-card">
+                    <h2 class="highlight-title">Modo Sobrevivência Ativado</h2>
+                    <p class="highlight-text">Tempo de guerra, medidas de guerra. Foco no essencial.</p>
+                </div>
+                
+                <div class="survival-tip">
+                    <h4 class="survival-tip-title">O QUE FAZER COM R$ 100 AGORA?</h4>
+                    <p>1. Pague a dívida com os juros mais altos<br>
+                    2. Compre alimentos básicos (arroz, feijão, ovos)<br>
+                    3. Guarde para uma emergência REAL</p>
+                </div>
+                
+                <div class="survival-tip">
+                    <h4 class="survival-tip-title">PLANO DE SOBREVIVÊNCIA</h4>
+                    <p>- Corte TODOS os luxos (não é hora)<br>
+                    - Foque em gerar renda extra<br>
+                    - Renegocie TODAS as dívidas possíveis<br>
+                    - Venda o que não é essencial</p>
+                </div>
+                
+                <button class="btn btn-primary btn-block" style="margin-top: 1.5rem;">
+                    <i class="fas fa-phone-alt"></i> Precisa renegociar dívidas? Clique aqui
+                </button>
+            </section>
+            
+            <!-- Seção Missões -->
+            <section id="missions" class="section">
+                <div class="highlight-card">
+                    <h2 class="highlight-title">Missões de Geração de Renda</h2>
+                    <p class="highlight-text">Dinheiro não cai do céu. Escolha uma missão e comece agora.</p>
+                </div>
+                
+                <div class="mission-card">
+                    <div class="mission-tag">FÁCIL</div>
+                    <h3 class="mission-title">Vender algo que não usa</h3>
+                    <p>Liste 5 itens que estão parados em casa e venda pelo Marketplace ou OLX.</p>
+                    <div class="mission-reward">Potencial: R$ 50 - R$ 500+</div>
+                </div>
+                
+                <div class="mission-card">
+                    <div class="mission-tag">MÉDIO</div>
+                    <h3 class="mission-title">Freela ou bico</h3>
+                    <p>Ofereça um serviço que você sabe fazer (digitação, design, reparos, etc.).</p>
+                    <div class="mission-reward">Potencial: R$ 100 - R$ 1000+</div>
+                </div>
+                
+                <div class="mission-card">
+                    <div class="mission-tag">DIFÍCIL</div>
+                    <h3 class="mission-title">Crie um produto digital</h3>
+                    <p>Faça um ebook, curso ou template sobre algo que domina e venda online.</p>
+                    <div class="mission-reward">Potencial: R$ 500 - ilimitado</div>
+                </div>
+                
+                <button class="btn btn-outline btn-block" style="margin-top: 1rem;">
+                    Ver mais missões
+                </button>
+            </section>
+        </main>
+        
+        <!-- Rodapé -->
+        <footer class="app-footer">
+            <p>Desf*de - 90 Dias pra Virar o Jogo</p>
+            <p>Hoje é dia de mudar. Sem desculpas.</p>
+        </footer>
     </div>
 
     <script>
-        function showScreen(screenId) {
-            // Esconde todas as telas
-            document.getElementById('tasks-screen').style.display = 'none';
-            document.getElementById('create-screen').style.display = 'none';
-            document.getElementById('profile-screen').style.display = 'none';
-            
-            // Mostra a tela selecionada
-            document.getElementById(screenId).style.display = 'block';
-            
-            // Atualiza tabs ativas
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
+        // Navegação entre abas
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove a classe active de todas as abas
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                // Adiciona a classe active apenas na aba clicada
+                tab.classList.add('active');
+                
+                // Oculta todas as seções
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Mostra apenas a seção correspondente
+                const target = tab.getAttribute('data-target');
+                document.getElementById(target).classList.add('active');
             });
-            event.currentTarget.classList.add('active');
-        }
+        });
+        
+        // Botão de emergência
+        document.getElementById('emergency-btn').addEventListener('click', () => {
+            alert("🚨 EMERGÊNCIA FINANCEIRA 🚨\n\n1. Corte TODOS os gastos não essenciais AGORA\n2. Liste TODAS as dívidas (valor e juros)\n3. Venda algo HOJE para gerar renda\n4. Entre em contato com credores para negociar\n\nNão adie. Aja AGORA ou vai piorar.");
+        });
+        
+        // Marcar tarefas como concluídas
+        document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const taskItem = this.closest('.task-item');
+                if (this.checked) {
+                    taskItem.style.opacity = '0.6';
+                    taskItem.style.textDecoration = 'line-through';
+                    
+                    // Efeito visual ao completar tarefa
+                    setTimeout(() => {
+                        taskItem.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            taskItem.style.transform = 'scale(1)';
+                        }, 300);
+                    }, 200);
+                } else {
+                    taskItem.style.opacity = '1';
+                    taskItem.style.textDecoration = 'none';
+                }
+            });
+        });
+        
+        // Efeito de scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
 </body>
 </html>
